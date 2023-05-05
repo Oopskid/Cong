@@ -1,0 +1,1 @@
+Portion of the library for neural network and other AI structures and algorithms

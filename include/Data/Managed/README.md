@@ -1,0 +1,1 @@
+Portion of the library for managed memory
