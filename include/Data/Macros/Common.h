@@ -10,10 +10,15 @@
 
 namespace Cg
 {
-  // Common types
+  // Common primitive types
   typedef unsigned char Byte;
   typedef unsigned short UShort;
   typedef unsigned int UInt;
+
+  // C-style strings
+  typedef const char* CString;
+  typedef const char* CStringC; // Constant c-style string
+  typedef const char* Literal; // Hard read only
 }
 
 #endif
