@@ -11,10 +11,6 @@ namespace Cg
 {
   namespace Memorable
   {
-    // Standard memorable I/O (raw data)
-    #define DeclareRawGenericMemorable(T) template<> bool get<T, false>(std::istream* stream, T& x) { return put(stream, x); }\
-                          template<> std::ostream* out<T, false>(std::ostream* stream, T* x) { return put(stream, x); }\
-                          template<> size_t getStorageRequirement<T, false>(T&) { return sizeof(T); }
     DeclareRawGenericMemorable(uint32_t)
     DeclareRawGenericMemorable(bool)
     DeclareRawGenericMemorable(char)
