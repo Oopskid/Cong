@@ -61,5 +61,19 @@ namespace Cg
       packet.get(&stream);
       return stream;
     }
+
+    template<typename T, bool F>
+    T* PacketWrapperFactory<T, F>::produce(PacketWrapper<T, F>*& newPacket) const
+    {
+      T* newData = new T();
+      newPacket = new PacketWrapper<T, F>(newData);
+      return newData;
+    }
+
+    template<typename T, bool F>
+    void* PacketWrapperFactory<T, F>::produce(Packet*& newPacket) const
+    {
+      return (void*)produce((PacketWrapper<T, F>*&)(newPacket));
+    }
   }
 }

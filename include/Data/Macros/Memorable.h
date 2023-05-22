@@ -40,19 +40,21 @@ namespace Cg
     // All together now
     #define ExportAllClassMemorable(T) ExportRawClassMemorable(T) ExportFormattedClassMemorable(T)
 
-    // Dynamic wrapper for arbitrary management
+    // Dynamic class for arbitrary management
     class Packet
     {
       public:
+      virtual ~Packet() {}
       virtual bool get(std::istream* stream) = 0;
       virtual std::ostream* out(std::ostream* stream) const = 0;
       virtual size_t getStorageRequirement() const = 0;
     };
 
-    template<typename T, bool formatted = false> class PacketWrapper : Packet
+    template<typename T, bool formatted = false> class PacketWrapper : public Packet
     {
       public:
       PacketWrapper(T* data);
+      virtual ~PacketWrapper() override {}
 
       virtual bool get(std::istream* stream) override;
       virtual std::ostream* out(std::ostream* stream) const override;
@@ -65,6 +67,28 @@ namespace Cg
     template<typename T> class FormattedPacketWrapper : public PacketWrapper<T, true> {
       public:
       FormattedPacketWrapper(T* data) : PacketWrapper(data) {  }
+    };
+
+    // Produces new packets and underlying storage (if any)
+    class PacketFactory
+    {
+      public:
+      // Produces a new packet of this type. Returns underlying storage (if any)
+      virtual void* produce(Packet*& newPacket) const = 0;
+    };
+
+    template<typename T, bool formatted = false> class PacketWrapperFactory : public PacketFactory
+    {
+      public:
+      PacketWrapperFactory() { }
+
+      T* produce(PacketWrapper<T, formatted>*& newPacket) const;
+      virtual void* produce(Packet*& newPacket) const override;
+    };
+
+    template<typename T> class FormattedPacketWrapperFactory : public PacketWrapperFactory<T, true> {
+      public:
+      FormattedPacketWrapperFactory() { }
     };
   }
 }
