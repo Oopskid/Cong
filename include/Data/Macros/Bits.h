@@ -8,5 +8,6 @@
 
 // Inline bit operations
 FORCE_INLINE static constexpr size_t BIT(const size_t index) { return size_t(0x01) << index; }
+template<typename IntTy> bool SATISFIES(IntTy value, IntTy mask) { return (value & mask) == mask; }
 
 #endif
