@@ -25,7 +25,7 @@ namespace Cg
     }
     template<> std::ostream* out<std::string, false>(std::ostream* stream, std::string* x) 
     {
-      uint32_t stringSize = x->size();
+      uint32_t stringSize = uint32_t(x->size());
       out(stream, &stringSize);
       put(stream, stringSize, x->data());
       return stream;
