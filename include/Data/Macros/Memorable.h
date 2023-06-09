@@ -56,9 +56,9 @@ namespace Cg
       PacketWrapper(T* data);
       virtual ~PacketWrapper() override {}
 
-      virtual bool get(std::istream* stream) override;
-      virtual std::ostream* out(std::ostream* stream) const override;
-      virtual size_t getStorageRequirement() const override;
+      bool get(std::istream* stream) final;
+      std::ostream* out(std::ostream* stream) const final;
+      size_t getStorageRequirement() const final;
 
       private:
       T* package;
@@ -83,7 +83,7 @@ namespace Cg
       PacketWrapperFactory() { }
 
       T* produce(PacketWrapper<T, formatted>*& newPacket) const;
-      virtual void* produce(Packet*& newPacket) const override;
+      void* produce(Packet*& newPacket) const final;
     };
 
     template<typename T> class FormattedPacketWrapperFactory : public PacketWrapperFactory<T, true> {
