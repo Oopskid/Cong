@@ -1,9 +1,17 @@
 #include "pch.h"
 #include "Algorithm/TEA.h"
+#include <cstring>
 
 namespace Cg
 {
   TEAGenerator::TEAGenerator(uint32_t magic) : delta(magic), sum(0), values{0}, key{0} { }
+  TEAGenerator::TEAGenerator(const TEAGenerator& other) : delta(other.delta) { std::memcpy(this, &other, sizeof(TEAGenerator)); }
+
+  TEAGenerator& TEAGenerator::operator=(const TEAGenerator& other)
+  {
+    std::memcpy(this, &other, sizeof(TEAGenerator));
+    return *this;
+  }
   
   void TEAGenerator::seed(uint32_t keyValue[4])
   {

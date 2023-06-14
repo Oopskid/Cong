@@ -14,6 +14,9 @@ namespace Cg
   {
     public:
     TEAGenerator(uint32_t magic = 0x9e3779b9);
+    TEAGenerator(const TEAGenerator& other);
+    TEAGenerator& operator=(const TEAGenerator& other);
+
     void seed(uint32_t keyValue[4]);
     void associate(uint32_t xV, uint32_t yV);
     uint64_t next() final;
